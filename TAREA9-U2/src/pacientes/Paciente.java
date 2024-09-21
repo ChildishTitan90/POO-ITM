@@ -3,17 +3,17 @@ package pacientes;
 import java.util.Random;
 
 public class Paciente {
-    public int id;
+    public String id;
     public String nombre;
     public String apellidos;
     public String fechaNacimiento;
     public String tipoSangre;
     public char sexo;
     private  String telefono;
-    private Random random =  new Random();
 
-    public Paciente(String nombre, String apellidos, String fechaNacimiento, String tipoSangre, char sexo, String telefono) {
-        this.id = random.nextInt(1,1000);
+
+    public Paciente( String id, String nombre, String apellidos, String fechaNacimiento, String tipoSangre, char sexo, String telefono) {
+        this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -22,7 +22,7 @@ public class Paciente {
         this.telefono = telefono;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -50,12 +50,8 @@ public class Paciente {
         return telefono;
     }
 
-    public Random getRandom() {
-        return random;
-    }
-
     public String mostrarDatos(){
-        String datos = String.format("ID: %d, NOMBRE: %s, APELLIDOS: %s, FECHA NACIMIENTO: %s, TIPO DE SANGRE: %s, SEXO: %s, TELEFONO: %s", this.id, this.nombre, this.apellidos, this.fechaNacimiento, this.tipoSangre, this.sexo, this.telefono, this.tipoSangre, this.sexo, this.telefono);
+        String datos = String.format("ID: %s, NOMBRE: %s, APELLIDOS: %s, FECHA NACIMIENTO: %s, TIPO DE SANGRE: %s, SEXO: %s, TELEFONO: %s", this.id, this.nombre, this.apellidos, this.fechaNacimiento, this.tipoSangre, this.sexo, this.telefono, this.tipoSangre, this.sexo, this.telefono);
         return datos;
     }
 }

@@ -5,7 +5,8 @@ import consultorios.Consultorio;
 import medicos.Medico;
 import pacientes.Paciente;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Hospital {
     public ArrayList<Paciente> listaPacientes = new ArrayList<>();
@@ -82,5 +83,83 @@ public class Hospital {
             System.out.println(consulta.mostrarDatos());
         }
     }
+
+    public String generarIdPaciente(){
+        //P-{año actual}--{mes actual}{longitudpacientes+1}{1,10000}
+        Random random = new Random();
+        LocalDate fecha = LocalDate.now();
+        int anoActual = fecha.getYear();
+        int mesActual = fecha.getMonthValue();
+        int longitudPacientesMasUno = this.listaPacientes.size() + 1;
+        int numeroAleatorio = random.nextInt(1,100000);
+
+        String id = String.format("P%d%d%d%d", anoActual, mesActual, longitudPacientesMasUno, numeroAleatorio);
+        return id;
+    }
+
+    public String generarIdMedico(String apellido,String fechaNacimiento){
+        //M-{Primeras 2 letras de su apellido} - {ultimo dígito de su año de nacimiento} - {año actual} - {numero aleatorio entre 50 y 700000} - {longitud de la lista de medicos + 1}
+        Random random = new Random();
+        LocalDate fecha = LocalDate.now();
+        String primerasLetrasApellido = apellido.substring(0, 2).toUpperCase();//para que se vea mejor en mayusculas :)
+        String ultimoDigitoAnoNacimiento = fechaNacimiento.substring(fechaNacimiento.length()-1).toUpperCase();
+        int anoActual = fecha.getYear();
+        int numeroAleatorio = random.nextInt(50,700000);
+        int longitudMedicosMasUno = this.listaMedicos.size() + 1;
+
+
+        String id = String.format("M%s%s%d%d%d", primerasLetrasApellido,ultimoDigitoAnoNacimiento,anoActual,numeroAleatorio,longitudMedicosMasUno);
+        return id;
+    }
+
+    public String generarIdConsultorio(){
+        //C-{longitud de la lista de consultorios + 1}-{dia actual}-{año actual}-{numero aleatorio entre 1 y 500000}
+        Random random = new Random();
+        LocalDate fecha = LocalDate.now();
+        int longitudConsultorioMasUno = this.listaConsultas.size() + 1;
+        int diaActual = fecha.getDayOfMonth();
+        int anoActual = fecha.getYear();
+        int numeroAleatorio = random.nextInt(1,500000);
+        String id = String.format("C%d%d%d%d",longitudConsultorioMasUno,diaActual,anoActual,numeroAleatorio);
+        return id;
+    }
+
+    public void mostrarPacientePorId(String id){
+        Optional<Paciente> pacienteEncontrado = this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(id)).findFirst();
+
+        if(pacienteEncontrado.isPresent()){
+            System.out.println(pacienteEncontrado.get().mostrarDatos());
+        }else{
+            System.out.println("No se encontro el paciente con el id " + id);
+        }
+        /*for (Paciente paciente : this.listaPacientes){
+            if(paciente.getId().equals(id)){
+                System.out.println(paciente.mostrarDatos());
+                return;
+            }
+        }
+        System.out.println("Paciente no encontrado.");*/
+    }
+
+    public void mostrarMedicoPorId(String id){
+        Optional<Medico> medicoEncontrado = this.listaMedicos.stream().filter(medico -> medico.getId().equals(id)).findFirst();
+
+        if(medicoEncontrado.isPresent()){
+            System.out.println(medicoEncontrado.get().mostrarDatos());
+        }else{
+            System.out.println("No se encontro el medico con el id " + id);
+        }
+    }
+
+    public void mostrarConsultorioPorId(String id){
+        Optional<Consultorio> consultorioEncontrado = this.listaConsultorios.stream().filter(consultorio -> consultorio.getId().equals(id)).findFirst();
+
+        if(consultorioEncontrado.isPresent()){
+            System.out.println(consultorioEncontrado.get().mostrarDatos());
+        }else{
+            System.out.println("No se encontro el consultorio con el id " + id);
+        }
+    }
+
 
 }

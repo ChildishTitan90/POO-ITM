@@ -18,18 +18,18 @@ public class ValidadorHospital {
         return true;
     }
 
-    public boolean validarExistenciaPaciente(int idPaciente, ArrayList<Consulta> listaConsultas ){
+    /*public boolean validarExistenciaPaciente(int idPaciente, ArrayList<Consulta> listaConsultas ){
         for (Consulta consulta: listaConsultas){
             if (consulta.getPaciente().getId()==(idPaciente)){
                 return true;
             }
         }
         return false;
-    }
+    }*/
 
-    public boolean validarDisponibilidadMedico(String fechaDeseada, int idMedico, ArrayList<Consulta> listaConsultas ){
+    public boolean validarDisponibilidadMedico(String fechaDeseada, String idMedico, ArrayList<Consulta> listaConsultas ){
         for (Consulta consulta: listaConsultas){
-            if (consulta.getFechaHora().equals(fechaDeseada) && consulta.getMedico().getId() == idMedico){
+            if (consulta.getFechaHora().equals(fechaDeseada) && consulta.getMedico().getId().equals(idMedico)){
                 return false;
             }
         }
