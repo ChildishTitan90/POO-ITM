@@ -5,7 +5,9 @@ import consultorios.Consultorio;
 import medicos.Medico;
 import pacientes.Paciente;
 
+import javax.management.StringValueExp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Hospital {
@@ -97,18 +99,20 @@ public class Hospital {
         return id;
     }
 
-    public String generarIdMedico(String apellido,String fechaNacimiento){
+    public String generarIdMedico(String apellido, LocalDate fechaNacimiento){
         //M-{Primeras 2 letras de su apellido} - {ultimo dígito de su año de nacimiento} - {año actual} - {numero aleatorio entre 50 y 700000} - {longitud de la lista de medicos + 1}
         Random random = new Random();
         LocalDate fecha = LocalDate.now();
         String primerasLetrasApellido = apellido.substring(0, 2).toUpperCase();//para que se vea mejor en mayusculas :)
-        String ultimoDigitoAnoNacimiento = fechaNacimiento.substring(fechaNacimiento.length()-1).toUpperCase();
+
+        String anioEnCadena = String.valueOf(fechaNacimiento);
+        anioEnCadena = anioEnCadena.substring(anioEnCadena.length()-1).toUpperCase();
         int anoActual = fecha.getYear();
         int numeroAleatorio = random.nextInt(50,700000);
         int longitudMedicosMasUno = this.listaMedicos.size() + 1;
 
 
-        String id = String.format("M%s%s%d%d%d", primerasLetrasApellido,ultimoDigitoAnoNacimiento,anoActual,numeroAleatorio,longitudMedicosMasUno);
+        String id = String.format("M%s%s%d%d%d", primerasLetrasApellido,anioEnCadena,anoActual,numeroAleatorio,longitudMedicosMasUno);
         return id;
     }
 
@@ -124,11 +128,19 @@ public class Hospital {
         return id;
     }
 
-    public void mostrarPacientePorId(String id){
-        Optional<Paciente> pacienteEncontrado = this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(id)).findFirst();
+    public Paciente obtenerPacientePorId(String id){
+        return this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(id)).findFirst().orElse(null);
+    }
 
-        if(pacienteEncontrado.isPresent()){
-            System.out.println(pacienteEncontrado.get().mostrarDatos());
+    public Medico obtenerMedicoPorId(String id){
+        return this.listaMedicos.stream().filter(medico -> medico.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    public void mostrarPacientePorId(String id){
+        Paciente paciente = this.obtenerPacientePorId(id);
+
+        if(paciente != null){
+            System.out.println(paciente.mostrarDatos());
         }else{
             System.out.println("No se encontro el paciente con el id " + id);
         }

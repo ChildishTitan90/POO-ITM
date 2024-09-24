@@ -4,16 +4,21 @@ import consultas.Consulta;
 import medicos.Medico;
 import pacientes.Paciente;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ValidadorHospital {
 
 
-    public boolean validarDisponibilidadEnFechaConsulta(String fechaDeseada, int numeroConsultorio, ArrayList<Consulta> listaConsultas) {
+    public boolean validarDisponibilidadEnFechaConsulta(LocalDateTime fechaDeseada, int numeroConsultorio, ArrayList<Consulta> listaConsultas) {
         for (Consulta consulta: listaConsultas){
-            if (consulta.getFechaHora().equals(fechaDeseada)&& numeroConsultorio == consulta.getConsultorio().getNumeroConsultorio()){
+           /* if (consulta.getFechaHora().equals(fechaDeseada)&& numeroConsultorio == consulta.getConsultorio().getNumeroConsultorio()){
+                return false;
+            }*/
+            if(consulta.getFechaHora().isEqual(fechaDeseada) && numeroConsultorio == consulta.getConsultorio().getNumeroConsultorio()){
                 return false;
             }
+
         }
         return true;
     }
@@ -27,9 +32,13 @@ public class ValidadorHospital {
         return false;
     }*/
 
-    public boolean validarDisponibilidadMedico(String fechaDeseada, String idMedico, ArrayList<Consulta> listaConsultas ){
+    public boolean validarDisponibilidadMedico(LocalDateTime fechaDeseada, String idMedico, ArrayList<Consulta> listaConsultas ){
         for (Consulta consulta: listaConsultas){
-            if (consulta.getFechaHora().equals(fechaDeseada) && consulta.getMedico().getId().equals(idMedico)){
+            /*if (consulta.getFechaHora().equals(fechaDeseada) && consulta.getMedico().getId().equals(idMedico)){
+                return false;
+            }*/
+
+            if(consulta.getFechaHora().isEqual(fechaDeseada) && consulta.getMedico().getId().equals(idMedico)){
                 return false;
             }
         }

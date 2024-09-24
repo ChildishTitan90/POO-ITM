@@ -3,6 +3,9 @@ import consultorios.Consultorio;
 import hospital.Hospital;
 import medicos.Medico;
 import pacientes.Paciente;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -36,17 +39,31 @@ public class Main {
                     System.out.println("************REGISTRAR PACIENTE************\n");
                     String id = hospital.generarIdPaciente();
                     sc.nextLine();
+
                     System.out.println("INGRESA EL NOMBRE DEL PACIENTE: ");
                     String nombre = sc.nextLine();
+
                     System.out.println("INGRESA LOS APELLIDOS: ");
                     String apellidos = sc.nextLine();
-                    System.out.println("INGRESA SU FECHA DE NACIMIENTO: ");
-                    String fechaNacimiento = sc.nextLine();
+
+                    System.out.println("INGRESA EL AÑO DE NACIMIENTO DEL PACIENTE");
+                    int anio = sc.nextInt();
+
+                    System.out.println("INGRESA EL MES DE NACIMIENTO DEL PACIENTE");
+                    int mes = sc.nextInt();
+
+                    System.out.println("INGRESA EL DIA DE NACIMIENTO DEL PACIENTE");
+                    int dia = sc.nextInt();
+
+                    LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
+
                     System.out.println("INGRESA EL TIPO DE SANGRE: ");
                     String tipoSangre = sc.nextLine();
-                    System.out.println("INGRESA EL SEXO DEL PASIENTE: H/M");
+
+                    System.out.println("INGRESA EL SEXO DEL PACIENTE: H/M");
                     Character sexo = sc.next().charAt(0);
                     sc.nextLine();
+
                     System.out.println("INGRESA EL TELEFONO DEL PACIENTE: ");
                     String telefono = sc.nextLine();
 
@@ -59,13 +76,26 @@ public class Main {
                     sc.nextLine();
                     System.out.println("INGRESA EL NOMBRE DEL MEDICO: ");
                     String nombreMedico = sc.nextLine();
+
                     System.out.println("INGRESA LOS APELLIDOS: ");
                     String apellidosMedico = sc.nextLine();
-                    System.out.println("INGRESA SU FECHA DE NACIMIENTO: ");
-                    String fechaNacimientoMedico = sc.nextLine();
+
+                    System.out.println("INGRESA EL AÑO DE NACIMIENTO DEL MEDICO");
+                    int anioMedico = sc.nextInt();
+
+                    System.out.println("INGRESA EL MES DE NACIMIENTO DEL MEDICO");
+                    int mesMedico = sc.nextInt();
+
+                    System.out.println("INGRESA EL DIA DE NACIMIENTO DEL MEDICO");
+                    int diaMedico = sc.nextInt();
+
+                    LocalDate fechaNacimientoMedico = LocalDate.of(anioMedico, mesMedico, diaMedico);
+
                     String idMedico = hospital.generarIdMedico(apellidosMedico, fechaNacimientoMedico);
+
                     System.out.println("INGRESA EL TELEFONO DEL MEDICO: ");
                     String telefonoMedico = sc.nextLine();
+
                     System.out.println("INGRESA EL RFC DEL PACIENTE: ");
                     String rfc = sc.nextLine();
 
@@ -87,30 +117,35 @@ public class Main {
                 case 4:
                     System.out.println("************REGISTRAR CONSULTA************\n");
 
-                    /*sc.nextLine();
-                    System.out.println("INGRESA EL ID DE LA CONSULTA: ");
-                    int id = sc.nextInt();
-                    sc.nextLine();
-                    System.out.println("INGRESA LA FECHA Y HORA DE LA CONSULTA: ");
-                    String fechaHora = sc.nextLine();
-                    System.out.println("INGRESA EL ID DEL PACIENTE: ");
-                    int idPaciente = sc.nextInt();
-                    System.out.println("INGRESA EL ID DEL MEDICO: ");
-                    int idMedico = sc.nextInt();
-                    System.out.println("INGRESA EL ID DEL CONSULTORIO: ");
-                    int idConsultorio = sc.nextInt();
+                    //int id = 1;
 
-                    /*if (!hospital.listaPacientes.contains(idPaciente)) {
-                        System.out.println("Error: El paciente no existe.");
-                        return;
-                    }
-                     //Validación del médico
-                    if (!hospital.listaMedicos.contains(idMedico)) {
-                        System.out.println("Error: El medico no existe.");
-                        return;
-                    }*/
-                    /*Consulta consulta = new Consulta(id, fechaHora, hospital.listaPacientes.get(idPaciente), hospital.listaMedicos.get(idMedico), hospital.listaConsultorios.get(idConsultorio));
-                    hospital.registrarConsulta(consulta, idPaciente);*/
+                    System.out.println("INGRESA EL DIA DE LA CONSULTA DESEADA: ");
+                    int diaConsulta = sc.nextInt();
+
+                    System.out.println("INGRESA EL MES DE LA CONSULTA DESEADA: ");
+                    int mesConsulta = sc.nextInt();
+
+                    System.out.println("INGRESA EL AÑO DE LA CONSULTA: ");
+                    int anioConsulta = sc.nextInt();
+
+                    System.out.println("INGRESA LA HORA DE LA CONSULTA: ");
+                    int horaConsulta = sc.nextInt();
+
+                    System.out.println("INGRESA LOS MINUTOS DE LA CONSULTA: ");
+                    int minutosConsulta = sc.nextInt();
+
+                    LocalDateTime fechaConsulta = LocalDateTime.of(anioConsulta, mesConsulta, diaConsulta, horaConsulta, minutosConsulta);
+                    System.out.println("INGRESA EL ID DEL PACIENTE: ");
+                    String pacienteId = sc.nextLine();
+
+                    Paciente pacienteConsulta = hospital.obtenerPacientePorId(pacienteId);
+
+                    System.out.println("INGRESA EL ID DEL MEDICO: ");
+                    String medicoId = sc.nextLine();
+
+                    Medico medicoConsulta = hospital.obtenerMedicoPorId(medicoId);
+
+
                     break;
                 case 5:
                     System.out.println("************MOSTRAR PACIENTES************\n");

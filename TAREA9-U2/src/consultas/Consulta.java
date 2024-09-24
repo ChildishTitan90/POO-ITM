@@ -6,17 +6,19 @@ import consultorios.Consultorio;
 
 import java.security.PrivateKey;
 import java.security.PrivilegedAction;
+import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.PrimitiveIterator;
 import java.util.Random;
 
 public class Consulta {
     public int id;
-    public String fechaHora;
+    public LocalDateTime fechaHora;
     public Paciente paciente;
     public Medico medico;
     public Consultorio consultorio;
 
-    public Consulta(int id, String fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
+    public Consulta(int id, LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.paciente = paciente;
@@ -28,7 +30,7 @@ public class Consulta {
         return id;
     }
 
-    public String getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
