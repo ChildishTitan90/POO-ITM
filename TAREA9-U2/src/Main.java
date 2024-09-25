@@ -6,7 +6,9 @@ import pacientes.Paciente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -57,6 +59,7 @@ public class Main {
 
                     LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
 
+                    sc.nextLine();
                     System.out.println("INGRESA EL TIPO DE SANGRE: ");
                     String tipoSangre = sc.nextLine();
 
@@ -93,10 +96,11 @@ public class Main {
 
                     String idMedico = hospital.generarIdMedico(apellidosMedico, fechaNacimientoMedico);
 
+                    sc.nextLine();
                     System.out.println("INGRESA EL TELEFONO DEL MEDICO: ");
                     String telefonoMedico = sc.nextLine();
 
-                    System.out.println("INGRESA EL RFC DEL PACIENTE: ");
+                    System.out.println("INGRESA EL RFC DEL MEDICO: ");
                     String rfc = sc.nextLine();
 
                     Medico medico = new Medico(idMedico,nombreMedico, apellidosMedico, fechaNacimientoMedico, telefonoMedico, rfc);
@@ -117,7 +121,7 @@ public class Main {
                 case 4:
                     System.out.println("************REGISTRAR CONSULTA************\n");
 
-                    //int id = 1;
+                    int id_consulta = new Random().nextInt(1,10000);//id temporal hasta que de el formato que le debemos dar
 
                     System.out.println("INGRESA EL DIA DE LA CONSULTA DESEADA: ");
                     int diaConsulta = sc.nextInt();
@@ -135,6 +139,8 @@ public class Main {
                     int minutosConsulta = sc.nextInt();
 
                     LocalDateTime fechaConsulta = LocalDateTime.of(anioConsulta, mesConsulta, diaConsulta, horaConsulta, minutosConsulta);
+
+                    sc.nextLine();
                     System.out.println("INGRESA EL ID DEL PACIENTE: ");
                     String pacienteId = sc.nextLine();
 
@@ -145,6 +151,13 @@ public class Main {
 
                     Medico medicoConsulta = hospital.obtenerMedicoPorId(medicoId);
 
+                    System.out.println("INGRESA EL ID DEL CONSULTIRIO DESEADO: ");
+                    String idConsultorioDeseado = sc.nextLine();
+
+                    Consultorio consultorioConsulta = hospital.obtenerConsultorioPorId(idConsultorioDeseado);
+
+                    Consulta consulta = new Consulta(id_consulta, fechaConsulta, pacienteConsulta, medicoConsulta, consultorioConsulta);
+                    hospital.registrarConsulta(consulta);
 
                     break;
                 case 5:

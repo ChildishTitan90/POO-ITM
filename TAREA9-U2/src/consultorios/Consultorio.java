@@ -1,7 +1,5 @@
 package consultorios;
 
-import java.util.Random;
-
 public class Consultorio {
     public String id;
     public int piso;

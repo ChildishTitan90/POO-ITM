@@ -3,13 +3,7 @@ package consultas;
 import medicos.Medico;
 import pacientes.Paciente;
 import consultorios.Consultorio;
-
-import java.security.PrivateKey;
-import java.security.PrivilegedAction;
 import java.time.LocalDateTime;
-import java.util.Locale;
-import java.util.PrimitiveIterator;
-import java.util.Random;
 
 public class Consulta {
     public int id;
@@ -47,7 +41,7 @@ public class Consulta {
     }
 
     public String mostrarDatos(){
-        String datos = String.format("ID: %d, FECHA/HORA: %s, PACIENTE: %s, MEDICO: %s, CONSULTORIO: %d", this.id, this.fechaHora, this.paciente, this.medico, this.consultorio);
+        String datos = String.format("ID: %d, FECHA/HORA: %s, PACIENTE: %s, MEDICO: %s, CONSULTORIO: %s", this.id, this.fechaHora, this.paciente.getNombre(), this.medico.getNombre(), this.consultorio.getNumeroConsultorio());
         return datos;
     }
 }

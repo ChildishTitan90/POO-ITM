@@ -1,8 +1,6 @@
 package pacientes;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Random;
 
 public class Paciente {
     public String id;

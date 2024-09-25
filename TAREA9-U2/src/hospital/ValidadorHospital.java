@@ -1,9 +1,6 @@
 package hospital;
 
 import consultas.Consulta;
-import medicos.Medico;
-import pacientes.Paciente;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 

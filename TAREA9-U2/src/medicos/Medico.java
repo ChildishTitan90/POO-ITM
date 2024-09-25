@@ -1,7 +1,7 @@
 package medicos;
 
 import java.time.LocalDate;
-import java.util.Random;
+
 
 public class Medico {
     public String id;

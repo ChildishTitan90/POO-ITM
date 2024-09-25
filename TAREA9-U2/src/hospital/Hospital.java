@@ -5,7 +5,6 @@ import consultorios.Consultorio;
 import medicos.Medico;
 import pacientes.Paciente;
 
-import javax.management.StringValueExp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -29,7 +28,7 @@ public class Hospital {
         this.listaConsultorios.add(consultorio);
     }
 
-    public void registrarConsulta(Consulta consulta, int idPaciente){
+    public void registrarConsulta(Consulta consulta){
         //No exista una consulta en la fecha y consultorio deseado
         if (!validador.validarDisponibilidadEnFechaConsulta(consulta.getFechaHora(), consulta.getConsultorio().getNumeroConsultorio(), this.listaConsultas)){
             System.out.println("Ya existe una consulta registrada para esa fecha.");
@@ -136,6 +135,10 @@ public class Hospital {
         return this.listaMedicos.stream().filter(medico -> medico.getId().equals(id)).findFirst().orElse(null);
     }
 
+    public Consultorio obtenerConsultorioPorId(String id){
+        return this.listaConsultorios.stream().filter(consultorio -> consultorio.getId().equals(id)).findFirst().orElse(null);
+    }
+
     public void mostrarPacientePorId(String id){
         Paciente paciente = this.obtenerPacientePorId(id);
 
@@ -154,20 +157,20 @@ public class Hospital {
     }
 
     public void mostrarMedicoPorId(String id){
-        Optional<Medico> medicoEncontrado = this.listaMedicos.stream().filter(medico -> medico.getId().equals(id)).findFirst();
+        Medico medico = this.obtenerMedicoPorId(id);
 
-        if(medicoEncontrado.isPresent()){
-            System.out.println(medicoEncontrado.get().mostrarDatos());
+        if(medico != null){
+            System.out.println(medico.mostrarDatos());
         }else{
             System.out.println("No se encontro el medico con el id " + id);
         }
     }
 
     public void mostrarConsultorioPorId(String id){
-        Optional<Consultorio> consultorioEncontrado = this.listaConsultorios.stream().filter(consultorio -> consultorio.getId().equals(id)).findFirst();
+        Consultorio consultorio = this.obtenerConsultorioPorId(id);
 
-        if(consultorioEncontrado.isPresent()){
-            System.out.println(consultorioEncontrado.get().mostrarDatos());
+        if(consultorio != null){
+            System.out.println(consultorio.mostrarDatos());
         }else{
             System.out.println("No se encontro el consultorio con el id " + id);
         }
