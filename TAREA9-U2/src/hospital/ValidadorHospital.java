@@ -42,5 +42,13 @@ public class ValidadorHospital {
         return true;
     }
 
+    public boolean validarFechaCorrecta(LocalDateTime fechaDeseada){
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        if (fechaDeseada.isBefore(fechaActual)){
+            return false;
+        }
+        return true;
+    }
 
 }

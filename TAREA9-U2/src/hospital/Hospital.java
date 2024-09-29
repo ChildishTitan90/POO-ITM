@@ -127,6 +127,13 @@ public class Hospital {
         return id;
     }
 
+    public String generarIdConsulta(){
+        int diaActual = LocalDate.now().getDayOfMonth();
+        int numeroAleatrorio = new Random().nextInt(100000 - 50) + 50;
+
+        return String.format("CO-%d-%d", listaConsultas.size()+1,numeroAleatrorio,diaActual);
+    }
+
     public Paciente obtenerPacientePorId(String id){
         return this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(id)).findFirst().orElse(null);
     }
@@ -176,5 +183,35 @@ public class Hospital {
         }
     }
 
+    public boolean validarFechaConsulta(LocalDateTime fechaDeseada){
+        return this.validador.validarFechaCorrecta(fechaDeseada);
+    }
+
+    public boolean validarTelefoPacienteYaExiste(String telefoPaciente){
+        for (Paciente paciente : this.listaPacientes) {
+            if (paciente.getTelefono().equals(telefoPaciente)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validarTelefoMedicoYaExiste(String telefoMedico){
+        for (Medico medico : this.listaMedicos) {
+            if (medico.getTelefono().equals(telefoMedico)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validarRfcMedicoYaExiste(String rfcMedico){
+        for (Medico medico : this.listaMedicos) {
+            if (medico.getRfc().equals(rfcMedico)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

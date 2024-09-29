@@ -6,13 +6,13 @@ import consultorios.Consultorio;
 import java.time.LocalDateTime;
 
 public class Consulta {
-    public int id;
+    public String id;
     public LocalDateTime fechaHora;
     public Paciente paciente;
     public Medico medico;
     public Consultorio consultorio;
 
-    public Consulta(int id, LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
+    public Consulta(String id, LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.paciente = paciente;
@@ -20,7 +20,7 @@ public class Consulta {
         this.consultorio = consultorio;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class Consulta {
     }
 
     public String mostrarDatos(){
-        String datos = String.format("ID: %d, FECHA/HORA: %s, PACIENTE: %s, MEDICO: %s, CONSULTORIO: %s", this.id, this.fechaHora, this.paciente.getNombre(), this.medico.getNombre(), this.consultorio.getNumeroConsultorio());
+        String datos = String.format("ID: %s, FECHA/HORA: %s, ID PACIENTE: %s, PACIENTE: %s, ID MEDICO: %s, MEDICO: %s, PISO CONSULTRIO: %d, CONSULTORIO: %d", this.id, this.fechaHora, this.paciente.getId(), this.paciente.getNombre(), this.medico.getId(), this.medico.getNombre(), this.consultorio.getPiso(), this.consultorio.getNumeroConsultorio());
         return datos;
     }
 }
