@@ -13,15 +13,19 @@ import java.util.Scanner;
 public class Menu {
     private Scanner sc = new Scanner(System.in);
     private Hospital hospital = new Hospital();
-    private static final String USUARIO_PACIENTE = "juan1234"; // el final es una constante y no se puede cambiar
+    private static final String USUARIO_PACIENTE = "juan"; // el final es una constante y no se puede cambiar
     private final String CONTRASENIA_PACIENTE = "12345*";
-    private final String USUARIO_MEDICO = "ale123";
+    private final String USUARIO_MEDICO = "ale";
     private final String CONTRASENIA_MEDICO = "54321*";
+    private final String ADMINISTRADOR = "admin1234";
+    private final String CONTRASENIA_ADMINISTRADOR = "contraseña";
 
     public void login(){
         int intentosMaximos = 5, intentosUsuario = 0;
 
         while(intentosUsuario < intentosMaximos){
+            System.out.println("intentos usuario = "+ intentosUsuario);
+
             System.out.println("BIENVENIDO");
             System.out.println("INICIA SESIÓN PARA CONTINUAR");
 
@@ -33,20 +37,27 @@ public class Menu {
 
             if (usuario.equals(this.USUARIO_PACIENTE)){
                 if (contrasenia.equals(this.CONTRASENIA_PACIENTE)){
-                    this.mostrarMenuPaciente();
+                    this.mostrarMenuPaciente(USUARIO_PACIENTE);
                     intentosUsuario = 0;
                 }else{
-                    this.mostrarErrorInicioSesion(intentosUsuario);
+                    intentosUsuario = this.mostrarErrorInicioSesion(intentosUsuario);
                 }
             } else if (usuario.equals(this.USUARIO_MEDICO)) {
                 if (contrasenia.equals(this.CONTRASENIA_MEDICO)){
                     this.mostrarMenuMedico();
-                }else{
-                    this.mostrarMenuMedico();
                     intentosUsuario = 0;
+                }else{
+                    intentosUsuario = this.mostrarErrorInicioSesion(intentosUsuario);
+                }
+            } else if (usuario.equals(this.ADMINISTRADOR)) {
+                if (contrasenia.equals(this.CONTRASENIA_ADMINISTRADOR)){
+                    this.mostrarMenu();
+                    intentosUsuario = 0;
+                }else{
+                    intentosUsuario = this.mostrarErrorInicioSesion(intentosUsuario);
                 }
             }else{
-                this.mostrarErrorInicioSesion(intentosUsuario);
+                intentosUsuario = this.mostrarErrorInicioSesion(intentosUsuario);
             }
         }
         System.out.println("INTENTOS MÁXIMOS ALCANZADOS");
@@ -57,7 +68,7 @@ public class Menu {
         return intentosUsuario + 1;
     }
 
-    private void mostrarMenuPaciente(){
+    private void mostrarMenuPaciente(String USUARIO_PACIENTE){
         int opcion = 0;
 
         while(opcion != 2){
@@ -68,6 +79,28 @@ public class Menu {
 
             System.out.println("SELECCIONA UNA OPCION: ");
             opcion = sc.nextInt();
+
+            switch (opcion){
+                case 1:
+                    System.out.println("---VER MIS CONSULTAS---");
+
+                    for (Consulta consulta : hospital.listaConsultas){
+                        if(USUARIO_PACIENTE.equals(consulta.getPaciente().getNombre())){
+                            System.out.println(consulta.mostrarDatos());
+                        }else{
+                            System.out.println("NO TIENES CONSULAS PROXIMAS");
+                        }
+                    }
+
+                    break;
+                case 2:
+                    System.out.println("HASTA LUEGO");
+                    sc.nextLine();
+                    break;
+                default:
+                    System.out.println("OPCION NO VALIDA.");
+                    break;
+            }
         }
     }
 
@@ -84,6 +117,36 @@ public class Menu {
 
             System.out.println("SELECCIONA UNA OPCION: ");
             opcion = sc.nextInt();
+
+            switch (opcion){
+                case 1:
+                    System.out.println("---VER MIS CONSULTAS---");
+                    for (Consulta consulta : hospital.listaConsultas){
+                        if(USUARIO_MEDICO.equals(consulta.getMedico().getNombre())){
+                            System.out.println(consulta.mostrarDatos());
+                        }else{
+                            System.out.println("NO TIENES CONSULAS PROXIMAS");
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("---VER MIS PACIENTES---");
+                    for (Consulta consulta : hospital.listaConsultas){
+                        if(USUARIO_MEDICO.equals(consulta.getMedico().getNombre())){
+                            System.out.println(consulta.paciente.mostrarDatos());
+                        }
+                    }
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    System.out.println("HASTA LUEGO");
+                    break;
+                default:
+                    System.out.println("OPCION NO VALILIDA");
+                    sc.nextLine();
+                    break;
+            }
         }
     }
 
