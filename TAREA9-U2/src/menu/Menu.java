@@ -3,8 +3,8 @@ package menu;
 import consultas.Consulta;
 import consultorios.Consultorio;
 import hospital.Hospital;
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -214,7 +214,10 @@ public class Menu {
                         }
                     }
 
-                    Paciente paciente = new Paciente(id, nombre, apellidos, fechaNacimiento, tipoSangre, sexo, telefono);
+                    System.out.println("INGRESA UNA CONTRASEÑA DEL PACIENTE: ");
+                    String contraseniaPaciente = sc.nextLine();
+
+                    Paciente paciente = new Paciente(id, nombre, apellidos, fechaNacimiento, tipoSangre, sexo, telefono, contraseniaPaciente);
                     hospital.registrarPaciente(paciente);
                     break;
                 case 2:
@@ -263,7 +266,10 @@ public class Menu {
                         }
                     }
 
-                    Medico medico = new Medico(idMedico,nombreMedico, apellidosMedico, fechaNacimientoMedico, telefonoMedico, rfc);
+                    System.out.println("INGRESA LA CONTRASEÑA DEL MEDICO: ");
+                    String contraseniaMedico = sc.nextLine();
+
+                    Medico medico = new Medico(idMedico,nombreMedico, apellidosMedico, fechaNacimientoMedico, telefonoMedico, rfc, contraseniaMedico);
                     hospital.registrarMedico(medico);
                     break;
                 case 3:

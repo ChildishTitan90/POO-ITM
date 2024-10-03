@@ -2,8 +2,8 @@ package hospital;
 
 import consultas.Consulta;
 import consultorios.Consultorio;
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,7 +47,7 @@ public class Hospital {
 
     public void mostrarPaciente(){
         if (listaPacientes.size() == 0){
-            System.out.println("No hay pacientes registrados");
+            System.out.println("No hay usuarios.pacientes registrados");
         }
 
         for (Paciente paciente : this.listaPacientes){
@@ -57,7 +57,7 @@ public class Hospital {
 
     public void mostrarMedico(){
         if (listaMedicos.size() == 0){
-            System.out.println("No hay medicos registrados");
+            System.out.println("No hay usuarios.pacientes.medicos registrados");
         }
 
         for (Medico medico : this.listaMedicos){
@@ -99,7 +99,7 @@ public class Hospital {
     }
 
     public String generarIdMedico(String apellido, LocalDate fechaNacimiento){
-        //M-{Primeras 2 letras de su apellido} - {ultimo dígito de su año de nacimiento} - {año actual} - {numero aleatorio entre 50 y 700000} - {longitud de la lista de medicos + 1}
+        //M-{Primeras 2 letras de su apellido} - {ultimo dígito de su año de nacimiento} - {año actual} - {numero aleatorio entre 50 y 700000} - {longitud de la lista de usuarios.pacientes.medicos + 1}
         Random random = new Random();
         LocalDate fecha = LocalDate.now();
         String primerasLetrasApellido = apellido.substring(0, 2).toUpperCase();//para que se vea mejor en mayusculas :)

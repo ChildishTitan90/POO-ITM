@@ -1,7 +1,7 @@
 package consultas;
 
-import medicos.Medico;
-import pacientes.Paciente;
+import usuarios.medicos.Medico;
+import usuarios.pacientes.Paciente;
 import consultorios.Consultorio;
 import java.time.LocalDateTime;
 
