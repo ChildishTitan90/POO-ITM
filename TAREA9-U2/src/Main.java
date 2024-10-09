@@ -1,3 +1,4 @@
+import hospital.Hospital;
 import menu.Menu;
 
 

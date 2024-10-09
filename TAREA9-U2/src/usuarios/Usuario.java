@@ -49,7 +49,7 @@ public class Usuario {
         return telefono;
     }
 
-    protected String getContrasenia() {
+    public String getContrasenia() {
         return contrasenia;
     }
 

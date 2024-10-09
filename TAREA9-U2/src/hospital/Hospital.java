@@ -2,19 +2,31 @@ package hospital;
 
 import consultas.Consulta;
 import consultorios.Consultorio;
+import usuarios.Usuario;
+import usuarios.administrador.Administrador;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
+import usuarios.utils.Rol;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class Hospital {
+    public ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public ArrayList<Paciente> listaPacientes = new ArrayList<>();
     public ArrayList<Medico> listaMedicos= new ArrayList<>();
+    public ArrayList<Administrador> listaAdmins = new ArrayList<>();
     public ArrayList<Consultorio> listaConsultorios = new ArrayList<>();
     public ArrayList<Consulta> listaConsultas = new ArrayList<>();
     private ValidadorHospital validador = new ValidadorHospital();
+
+    public void Hospital(){
+        LocalDate fechaNacimiento = LocalDate.of(1999, 11, 05);
+        Administrador administrador = new Administrador("A-01", "Alverto", "Rivera", fechaNacimiento, "4466523641", "Admin123", Rol.ADMIN,10.000, "fdasfa", 10);
+        this.listaAdmins.add(administrador);
+        this.listaUsuarios.add(administrador);
+    }
 
     public void registrarPaciente(Paciente paciente){
         this.listaPacientes.add(paciente);
@@ -43,7 +55,6 @@ public class Hospital {
 
         this.listaConsultas.add(consulta);
     }
-
 
     public void mostrarPaciente(){
         if (listaPacientes.size() == 0){
@@ -212,6 +223,15 @@ public class Hospital {
             }
         }
         return false;
+    }
+
+    public Usuario validarInicioSesion(String idUsuario, String contrasenia){
+        for(Usuario usuario: this.listaUsuarios){
+            if(usuario.getId().equals(idUsuario) && usuario.getContrasenia().equals(contrasenia)){
+                return usuario;
+            }
+        }
+        return null;
     }
 
 }

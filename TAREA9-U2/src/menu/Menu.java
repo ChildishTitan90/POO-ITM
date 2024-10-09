@@ -3,8 +3,10 @@ package menu;
 import consultas.Consulta;
 import consultorios.Consultorio;
 import hospital.Hospital;
+import usuarios.Usuario;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
+import usuarios.utils.Rol;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,50 +15,40 @@ import java.util.Scanner;
 public class Menu {
     private Scanner sc = new Scanner(System.in);
     private Hospital hospital = new Hospital();
-    private static final String USUARIO_PACIENTE = "juan"; // el final es una constante y no se puede cambiar
-    private final String CONTRASENIA_PACIENTE = "12345*";
-    private final String USUARIO_MEDICO = "ale";
-    private final String CONTRASENIA_MEDICO = "54321*";
-    private final String ADMINISTRADOR = "admin1234";
-    private final String CONTRASENIA_ADMINISTRADOR = "contraseña";
+
+
 
     public void login(){
+        hospital.Hospital();
+
         int intentosMaximos = 5, intentosUsuario = 0;
 
         while(intentosUsuario < intentosMaximos){
-            System.out.println("intentos usuario = "+ intentosUsuario);
-
             System.out.println("BIENVENIDO");
             System.out.println("INICIA SESIÓN PARA CONTINUAR");
 
-            System.out.println("INGGRESA TU USUARIO: ");
+            System.out.println("INGGRESA TU ID DE USUARIO: ");
             String usuario = sc.nextLine();
 
             System.out.println("INGRESA TU CONTRASEÑA: ");
             String contrasenia = sc.nextLine();
 
-            if (usuario.equals(this.USUARIO_PACIENTE)){
-                if (contrasenia.equals(this.CONTRASENIA_PACIENTE)){
-                    this.mostrarMenuPaciente(USUARIO_PACIENTE);
+            Usuario usuarioeEnSesion = hospital.validarInicioSesion(usuario, contrasenia);
+
+            if (usuarioeEnSesion instanceof Usuario){
+                if (usuarioeEnSesion.getRol() == Rol.PACIENTE ){
+                    Paciente pacienteEnSesion = (Paciente) usuarioeEnSesion;
+                    this.mostrarMenuPaciente(pacienteEnSesion);
+                    intentosUsuario = 0;
+                } else if (usuarioeEnSesion.getRol() == Rol.MEDICO) {
+                    Medico medicoEnSesion = (Medico) usuarioeEnSesion;
+                    this.mostrarMenuMedico(medicoEnSesion);
                     intentosUsuario = 0;
                 }else{
-                    intentosUsuario = this.mostrarErrorInicioSesion(intentosUsuario);
-                }
-            } else if (usuario.equals(this.USUARIO_MEDICO)) {
-                if (contrasenia.equals(this.CONTRASENIA_MEDICO)){
-                    this.mostrarMenuMedico();
+                    this.mostrarMenuAdmin();
                     intentosUsuario = 0;
-                }else{
-                    intentosUsuario = this.mostrarErrorInicioSesion(intentosUsuario);
                 }
-            } else if (usuario.equals(this.ADMINISTRADOR)) {
-                if (contrasenia.equals(this.CONTRASENIA_ADMINISTRADOR)){
-                    this.mostrarMenu();
-                    intentosUsuario = 0;
-                }else{
-                    intentosUsuario = this.mostrarErrorInicioSesion(intentosUsuario);
-                }
-            }else{
+            } else{
                 intentosUsuario = this.mostrarErrorInicioSesion(intentosUsuario);
             }
         }
@@ -68,14 +60,15 @@ public class Menu {
         return intentosUsuario + 1;
     }
 
-    private void mostrarMenuPaciente(String USUARIO_PACIENTE){
+    private void mostrarMenuPaciente(Paciente paciente){
         int opcion = 0;
 
-        while(opcion != 2){
+        while(opcion != 3){
             System.out.println("HOSPITAL");
             System.out.println("MENU DE PACIENTE");
             System.out.println("1. VER MIS CONSULTAS");
-            System.out.println("2.SALIR");
+            System.out.println("2. VER MIS Datos");
+            System.out.println("3.SALIR");
 
             System.out.println("SELECCIONA UNA OPCION: ");
             opcion = sc.nextInt();
@@ -85,7 +78,7 @@ public class Menu {
                     System.out.println("---VER MIS CONSULTAS---");
 
                     for (Consulta consulta : hospital.listaConsultas){
-                        if(USUARIO_PACIENTE.equals(consulta.getPaciente().getNombre())){
+                        if(paciente.equals(consulta.getPaciente().getNombre())){
                             System.out.println(consulta.mostrarDatos());
                         }else{
                             System.out.println("NO TIENES CONSULAS PROXIMAS");
@@ -104,7 +97,7 @@ public class Menu {
         }
     }
 
-    private void mostrarMenuMedico(){
+    private void mostrarMenuMedico(Medico medico){
         int opcion = 0;
 
         while(opcion != 4){
@@ -122,7 +115,7 @@ public class Menu {
                 case 1:
                     System.out.println("---VER MIS CONSULTAS---");
                     for (Consulta consulta : hospital.listaConsultas){
-                        if(USUARIO_MEDICO.equals(consulta.getMedico().getNombre())){
+                        if(medico.equals(consulta.getMedico().getNombre())){
                             System.out.println(consulta.mostrarDatos());
                         }else{
                             System.out.println("NO TIENES CONSULAS PROXIMAS");
@@ -132,7 +125,7 @@ public class Menu {
                 case 2:
                     System.out.println("---VER MIS PACIENTES---");
                     for (Consulta consulta : hospital.listaConsultas){
-                        if(USUARIO_MEDICO.equals(consulta.getMedico().getNombre())){
+                        if(medico.equals(consulta.getMedico().getNombre())){
                             System.out.println(consulta.paciente.mostrarDatos());
                         }
                     }
@@ -150,7 +143,7 @@ public class Menu {
         }
     }
 
-    private void mostrarMenu() {
+    private void mostrarMenuAdmin() {
         int opcion = 0;
 
         System.out.println("**HOSPITAL**");
