@@ -47,6 +47,10 @@ public class Consulta {
         return status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public String mostrarDatos(){
         String datos = String.format("ID: %s, FECHA/HORA: %s, ID PACIENTE: %s, PACIENTE: %s, ID MEDICO: %s, MEDICO: %s, PISO CONSULTRIO: %d, CONSULTORIO: %d", this.id, this.fechaHora, this.paciente.getId(), this.paciente.getNombre(), this.medico.getId(), this.medico.getNombre(), this.consultorio.getPiso(), this.consultorio.getNumeroConsultorio());
         return datos;

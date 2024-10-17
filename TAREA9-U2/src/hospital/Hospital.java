@@ -3,12 +3,14 @@ package hospital;
 import consultas.Consulta;
 import consultas.utils.Status;
 import consultorios.Consultorio;
+import expediente.Expediente;
 import usuarios.Usuario;
 import usuarios.administrador.Administrador;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
 import usuarios.utils.Rol;
 
+import javax.sound.midi.Soundbank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -266,4 +268,60 @@ public class Hospital {
     }
 
     public void verPacientesMedico(){}
+
+    public Consulta obtenerConsultaPorId(String idConsulta){
+        for (Consulta consulta : listaConsultas) {
+            if(consulta.getId().equals(idConsulta)){
+                return consulta;
+            }
+        }
+        return null;
+    }
+
+    public void eliminarConsultaPorId(String idConsulta){
+        for (Consulta consulta : listaConsultas) {
+            if(consulta.getId().equals(idConsulta)){
+                this.listaConsultas.remove(consulta);
+                return;
+            }
+        }
+    }
+
+    public void generarExpedienteConsulta(String idConsulta, String idPaciente){
+        Scanner sc = new Scanner(System.in);
+
+       //obtener consulta
+        Consulta consulta = obtenerConsultaPorId(idConsulta);
+
+        //si es  null o existe una consulta con ese id
+        if (consulta == null) {
+            System.out.println("NO EXISTE UNA CONSULTA CON EL ID PROPORCIONADO");
+            return;
+        }
+
+        //obtenemos el paciente
+        Paciente paciente = obtenerPacientePorId(idPaciente);
+
+        //si el paciente es null
+        if (paciente == null) {
+            System.out.println("NO EXISTE UN PACIENTE CON EL ID PROPORCIONADO");
+            return;
+        }
+
+        // si no entra al if de arriba actualiza el status de la consulta
+        consulta.setStatus(Status.TERMINADA);
+
+        //elimina la onsulta de la lista
+        this.eliminarConsultaPorId(idConsulta);
+
+        System.out.println("INGRESA LAS OBSERVACINES FINALES DE LA COONSULTA: ");
+        String observaciones = sc.nextLine();
+
+        Expediente expediente = new Expediente(consulta, observaciones);
+
+        //registrar la consulta en el expediente del paciente
+        paciente.registrarExpediente(expediente);
+        System.out.println("CONSULTA FINALIZADA.");
+
+    }
 }
