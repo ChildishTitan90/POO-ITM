@@ -1,6 +1,7 @@
 package hospital;
 
 import consultas.Consulta;
+import consultas.utils.Status;
 import consultorios.Consultorio;
 import usuarios.Usuario;
 import usuarios.administrador.Administrador;
@@ -30,10 +31,12 @@ public class Hospital {
 
     public void registrarPaciente(Paciente paciente){
         this.listaPacientes.add(paciente);
+        this.listaUsuarios.add(paciente);
     }
 
     public void registrarMedico(Medico medico){
         this.listaMedicos.add(medico);
+        this.listaUsuarios.add(medico);
     }
 
     public void registrarConsultorio(Consultorio consultorio){
@@ -232,6 +235,20 @@ public class Hospital {
             }
         }
         return null;
+    }
+
+    public void verConsultasPaciente(String idPaciente){
+        boolean existe = false;
+        for (Consulta consulta : listaConsultas){
+            if(idPaciente.equals(consulta.getPaciente().getId()) && consulta.getStatus() == Status.PENDENTE){
+                existe = true;
+                System.out.println(consulta.mostrarDatos());
+            }
+        }
+
+        if (!existe) {
+        }
+            System.out.println("\nNO TIENES CONSULAS PROXIMAS AGENDADAS");
     }
 
 }

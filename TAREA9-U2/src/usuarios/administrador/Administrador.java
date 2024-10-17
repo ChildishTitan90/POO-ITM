@@ -16,4 +16,16 @@ public class Administrador extends Usuario {
         this.rfc = rfc;
         this.aniosTrabajados = aniosTrabajados;
     }
+
+    public int getAniosTrabajados() {
+        return aniosTrabajados;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public Double getSueldo() {
+        return sueldo;
+    }
 }

@@ -1,5 +1,6 @@
 package consultas;
 
+import consultas.utils.Status;
 import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
 import consultorios.Consultorio;
@@ -11,6 +12,7 @@ public class Consulta {
     public Paciente paciente;
     public Medico medico;
     public Consultorio consultorio;
+    public Status status;
 
     public Consulta(String id, LocalDateTime fechaHora, Paciente paciente, Medico medico, Consultorio consultorio) {
         this.id = id;
@@ -18,6 +20,7 @@ public class Consulta {
         this.paciente = paciente;
         this.medico = medico;
         this.consultorio = consultorio;
+        this.status = status.PENDENTE;
     }
 
     public String getId() {
@@ -38,6 +41,10 @@ public class Consulta {
 
     public Consultorio getConsultorio() {
         return consultorio;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public String mostrarDatos(){

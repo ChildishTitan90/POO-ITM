@@ -8,6 +8,7 @@ import usuarios.medicos.Medico;
 import usuarios.pacientes.Paciente;
 import usuarios.utils.Rol;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -15,6 +16,7 @@ import java.util.Scanner;
 public class Menu {
     private Scanner sc = new Scanner(System.in);
     private Hospital hospital = new Hospital();
+
 
 
 
@@ -63,12 +65,13 @@ public class Menu {
     private void mostrarMenuPaciente(Paciente paciente){
         int opcion = 0;
 
-        while(opcion != 3){
+        while(opcion != 4){
             System.out.println("HOSPITAL");
             System.out.println("MENU DE PACIENTE");
             System.out.println("1. VER MIS CONSULTAS");
-            System.out.println("2. VER MIS Datos");
-            System.out.println("3.SALIR");
+            System.out.println("2. VER MIS DATOS");
+            System.out.println("3. VER MI EXPEDIENTE");
+            System.out.println("4.SALIR");
 
             System.out.println("SELECCIONA UNA OPCION: ");
             opcion = sc.nextInt();
@@ -76,17 +79,15 @@ public class Menu {
             switch (opcion){
                 case 1:
                     System.out.println("---VER MIS CONSULTAS---");
-
-                    for (Consulta consulta : hospital.listaConsultas){
-                        if(paciente.equals(consulta.getPaciente().getNombre())){
-                            System.out.println(consulta.mostrarDatos());
-                        }else{
-                            System.out.println("NO TIENES CONSULAS PROXIMAS");
-                        }
-                    }
-
+                    hospital.verConsultasPaciente(paciente.getId());
                     break;
                 case 2:
+                    System.out.println("MIS DATOS");
+                    System.out.println(paciente.mostrarDatos());
+                    break;
+                case 3:
+                    break;
+                case 4 :
                     System.out.println("HASTA LUEGO");
                     sc.nextLine();
                     break;
@@ -100,20 +101,23 @@ public class Menu {
     private void mostrarMenuMedico(Medico medico){
         int opcion = 0;
 
-        while(opcion != 4){
+        while(opcion != 6){
             System.out.println("HOSPITAL");
             System.out.println("MENU DE MEDICO");
-            System.out.println("1. VER MIS CONSULTAS");
+            System.out.println("1.VER MIS CONSULTAS ACTUALES");
             System.out.println("2.VER MIS PACIENTES");
             System.out.println("3.CONSULTAR PACIENTE");
-            System.out.println("4.SALIR");
+            System.out.println("4.-CONSULTAR HISTORIAL DE PACIENTE");
+            System.out.println("5.-COMPLETAR CONSULTA");
+            System.out.println("6-VER MIS DATOS");
+            System.out.println("7.SALIR");
 
             System.out.println("SELECCIONA UNA OPCION: ");
             opcion = sc.nextInt();
 
             switch (opcion){
                 case 1:
-                    System.out.println("---VER MIS CONSULTAS---");
+                    System.out.println("---VER MIS CONSULTAS ACTUALES---");
                     for (Consulta consulta : hospital.listaConsultas){
                         if(medico.equals(consulta.getMedico().getNombre())){
                             System.out.println(consulta.mostrarDatos());
@@ -131,9 +135,23 @@ public class Menu {
                     }
                     break;
                 case 3:
+                    System.out.println("---CONSULTAR PACIENTE---");
+
                     break;
                 case 4:
+                    System.out.println("---CONSULTAR HISTORIAL DE PACIENTE--");
+                    break;
+
+                case 5:
+                    System.out.println("---COMPLETAR CONSULTA---");
+                    break;
+                case 6:
+                    System.out.println("---MIS DATOS---");
+                    System.out.println(medico.mostrarDatos());
+                    break;
+                case 7:
                     System.out.println("HASTA LUEGO");
+                    sc.nextLine();
                     break;
                 default:
                     System.out.println("OPCION NO VALILIDA");
@@ -407,6 +425,7 @@ public class Menu {
                 case 12:
                     System.out.println("************SALIR************");
                     System.out.println("HASTA PRONTO!!!");
+                    sc.nextLine();
                     break;
                 default:
                     System.out.println("************OPCIÓN NO VALIDA************\n");
