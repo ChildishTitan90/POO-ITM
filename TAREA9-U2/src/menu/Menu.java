@@ -101,7 +101,7 @@ public class Menu {
     private void mostrarMenuMedico(Medico medico){
         int opcion = 0;
 
-        while(opcion != 6){
+        while(opcion != 7){
             System.out.println("HOSPITAL");
             System.out.println("MENU DE MEDICO");
             System.out.println("1.VER MIS CONSULTAS ACTUALES");
@@ -118,13 +118,7 @@ public class Menu {
             switch (opcion){
                 case 1:
                     System.out.println("---VER MIS CONSULTAS ACTUALES---");
-                    for (Consulta consulta : hospital.listaConsultas){
-                        if(medico.equals(consulta.getMedico().getNombre())){
-                            System.out.println(consulta.mostrarDatos());
-                        }else{
-                            System.out.println("NO TIENES CONSULAS PROXIMAS");
-                        }
-                    }
+                    hospital.verConsultasMedico(medico.getId());
                     break;
                 case 2:
                     System.out.println("---VER MIS PACIENTES---");

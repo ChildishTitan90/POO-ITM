@@ -247,8 +247,23 @@ public class Hospital {
         }
 
         if (!existe) {
-        }
             System.out.println("\nNO TIENES CONSULAS PROXIMAS AGENDADAS");
+        }
     }
 
+    public void verConsultasMedico (String idMedico){
+        boolean existe = false;
+        for (Consulta consulta : listaConsultas){
+            if(idMedico.equals(consulta.getMedico().getId())){
+                existe = true;
+                System.out.println(consulta.mostrarDatos());
+            }
+
+            if (!existe) {
+                System.out.println("NO TIENES CONSULAS PROXIMAS");
+            }
+        }
+    }
+
+    public void verPacientesMedico(){}
 }
