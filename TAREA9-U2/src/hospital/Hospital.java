@@ -26,7 +26,7 @@ public class Hospital {
 
     public void Hospital(){
         LocalDate fechaNacimiento = LocalDate.of(1999, 11, 05);
-        Administrador administrador = new Administrador("A-01", "Alverto", "Rivera", fechaNacimiento, "4466523641", "Admin123", Rol.ADMIN,10.000, "fdasfa", 10);
+        Administrador administrador = new Administrador("A-01", "Alverto", "Rivera", fechaNacimiento, "4466523641", "Admin123", Rol.ADMIN,10000.00, "fdasfa", 10);
         this.listaAdmins.add(administrador);
         this.listaUsuarios.add(administrador);
     }
@@ -73,7 +73,7 @@ public class Hospital {
 
     public void mostrarMedico(){
         if (listaMedicos.size() == 0){
-            System.out.println("No hay usuarios.pacientes.medicos registrados");
+            System.out.println("No hay usuarios.pacientes.usuarios.medicos registrados");
         }
 
         for (Medico medico : this.listaMedicos){
@@ -115,7 +115,7 @@ public class Hospital {
     }
 
     public String generarIdMedico(String apellido, LocalDate fechaNacimiento){
-        //M-{Primeras 2 letras de su apellido} - {ultimo dígito de su año de nacimiento} - {año actual} - {numero aleatorio entre 50 y 700000} - {longitud de la lista de usuarios.pacientes.medicos + 1}
+        //M-{Primeras 2 letras de su apellido} - {ultimo dígito de su año de nacimiento} - {año actual} - {numero aleatorio entre 50 y 700000} - {longitud de la lista de usuarios.pacientes.usuarios.medicos + 1}
         Random random = new Random();
         LocalDate fecha = LocalDate.now();
         String primerasLetrasApellido = apellido.substring(0, 2).toUpperCase();//para que se vea mejor en mayusculas :)
@@ -150,6 +150,10 @@ public class Hospital {
         return String.format("CO-%d-%d", listaConsultas.size()+1,numeroAleatrorio,diaActual);
     }
 
+    public Administrador obtenerAdminPorId(String id){
+        return this.listaAdmins.stream().filter(administrador -> administrador.getId().equals(id)).findFirst().orElse(null);
+    }
+
     public Paciente obtenerPacientePorId(String id){
         return this.listaPacientes.stream().filter(paciente -> paciente.getId().equals(id)).findFirst().orElse(null);
     }
@@ -160,6 +164,16 @@ public class Hospital {
 
     public Consultorio obtenerConsultorioPorId(String id){
         return this.listaConsultorios.stream().filter(consultorio -> consultorio.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    public void mostrarAdminPorId(String id){
+        Administrador administrador = this.obtenerAdminPorId(id);
+
+        if(administrador != null){
+            System.out.println(administrador.mostrarDatos());
+        }else{
+            System.out.println("No se encontro el paciente con el id " + id);
+        }
     }
 
     public void mostrarPacientePorId(String id){

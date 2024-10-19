@@ -31,7 +31,8 @@ public class MenuAdministrador {
         System.out.println("9. MOSTRAR PACIENTE POR ID");
         System.out.println("10. MOSTRAR MEDICO POR ID");
         System.out.println("11. MOSTRAR CONSULTORIO POR ID");
-        System.out.println("12. SALIR");
+        System.out.println("12.- VER INFORMACION PERSONAL.");
+        System.out.println("13. SALIR");
 
         System.out.print("\nSelecciona una opcion: ");
         opcion = sc.nextInt();
@@ -279,6 +280,11 @@ public class MenuAdministrador {
                 hospital.mostrarConsultorioPorId(id_Consultorio);
                 break;
             case 12:
+                System.out.println("************MOSTRAR INFORMACION PERSONAL************\n");
+                String idAdmin = administrador.getId();
+                hospital.mostrarAdminPorId(idAdmin);
+                break;
+            case 13:
                 System.out.println("************SALIR************");
                 System.out.println("HASTA PRONTO!!!");
                 sc.nextLine();

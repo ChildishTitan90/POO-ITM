@@ -22,4 +22,3 @@ public class Medico extends Usuario {
         return datos;
     }
 }
-

@@ -54,14 +54,13 @@ public class Menu {
                         opcion = menuMedico.mostrarMenu();
                         menuMedico.procesarDatosMenu(opcion,medicoEnSesion, hospital);
                     }
-                    //menuMedico.mostrarMenu(medicoEnSesion);
                     intentosUsuario = 0;
                 }else{
                     Administrador administradorEnSesion = (Administrador) usuarioeEnSesion;
                     MenuAdministrador menuAdministrador = new MenuAdministrador();
                     int opcion = 0;
 
-                    while (opcion !=12){
+                    while (opcion !=13){
                         opcion = menuAdministrador.mostrarMenu();
                         menuAdministrador.procesarDatosMenu(opcion, administradorEnSesion, hospital);
                     }

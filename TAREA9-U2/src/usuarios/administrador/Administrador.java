@@ -28,4 +28,10 @@ public class Administrador extends Usuario {
     public Double getSueldo() {
         return sueldo;
     }
+
+    public String mostrarDatos(){
+        String datos = String.format("ID: %s, NOMBRE: %s, APELLIDOS: %s, FECHA NACIMIENTO: %s, TELEFONO: %s, SUELDO: %.2f, RFC: %s, AÑOS TRABAJADOS: %d",
+                this.id, this.nombre, this.apellidos, this.fechaNacimiento, this.telefono, this.sueldo, this.rfc, this.aniosTrabajados);
+        return datos;
+    }
 }

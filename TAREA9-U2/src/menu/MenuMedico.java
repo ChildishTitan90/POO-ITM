@@ -2,7 +2,7 @@ package menu;
 
 import consultas.Consulta;
 import hospital.Hospital;
-import medicos.Medico;
+import usuarios.medicos.Medico;
 
 import java.util.Scanner;
 
@@ -65,8 +65,5 @@ public class MenuMedico {
                 sc.nextLine();
                 break;
         }
-    }
-
-    public void procesarDatosMenu(int opcion, usuarios.medicos.Medico medicoEnSesion, Hospital hospital) {
     }
 }
