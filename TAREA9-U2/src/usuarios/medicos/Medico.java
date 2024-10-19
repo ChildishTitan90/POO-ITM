@@ -5,7 +5,6 @@ import usuarios.utils.Rol;
 
 import java.time.LocalDate;
 
-
 public class Medico extends Usuario {
     private  String rfc;
 
@@ -23,3 +22,4 @@ public class Medico extends Usuario {
         return datos;
     }
 }
+
