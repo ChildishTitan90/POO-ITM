@@ -37,7 +37,7 @@ public class MenuMedico {
                 System.out.println("---VER MIS PACIENTES---");
                 for (Consulta consulta : hospital.listaConsultas){
                     if(medico.equals(consulta.getMedico().getNombre())){
-                        System.out.println(consulta.paciente.mostrarDatos());
+                        System.out.println(consulta.paciente.mostrarInformacion());
                     }
                 }
                 break;
@@ -54,7 +54,7 @@ public class MenuMedico {
                 break;
             case 6:
                 System.out.println("---MIS DATOS---");
-                System.out.println(medico.mostrarDatos());
+                System.out.println(medico.mostrarInformacion());
                 break;
             case 7:
                 System.out.println("HASTA LUEGO");

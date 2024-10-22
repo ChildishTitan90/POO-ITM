@@ -36,7 +36,7 @@ public class MenuPaciente {
                 break;
             case 2:
                 System.out.println("MIS DATOS");
-                System.out.println(paciente.mostrarDatos());
+                System.out.println(paciente.mostrarInformacion());
                 break;
             case 3:
                 break;

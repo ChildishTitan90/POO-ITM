@@ -27,10 +27,16 @@ public class Paciente extends Usuario {
         return sexo;
     }
 
-    public String mostrarDatos(){
+    @Override //indica que voy a sobreescribir el metpdp de la clase padre
+    public String mostrarInformacion() {
+        String datosPaciente = String.format("TIPO DE SANGRE: %s, SEXO: %s", this.tipoSangre, this.sexo);
+        return super.mostrarInformacion() + datosPaciente;
+    }
+
+    /*public String mostrarDatos(){
         String datos = String.format("ID: %s, NOMBRE: %s, APELLIDOS: %s, FECHA NACIMIENTO: %s, TIPO DE SANGRE: %s, SEXO: %s, TELEFONO: %s", this.id, this.nombre, this.apellidos, this.fechaNacimiento, this.tipoSangre, this.sexo, this.telefono, this.tipoSangre, this.sexo, this.telefono);
         return datos;
-    }
+    }*/
 
     public void registrarExpediente(Expediente expediente){
         this.listaExpedientes.add(expediente);
