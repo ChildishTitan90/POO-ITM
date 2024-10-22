@@ -77,6 +77,7 @@ public class MenuAdministrador {
             case 2:
                 System.out.println("************REGISTRAR MEDICO************\n");
 
+                //la tarea es de aqui
                 ArrayList<String> datosMedico = this.obtnerDatosComun(Rol.MEDICO);
                 String nombreMedico = datosMedico.get(0);
                 String apellidoMedico = datosMedico.get(1);
@@ -107,6 +108,7 @@ public class MenuAdministrador {
 
                 Medico medico = new Medico(idMedico,nombreMedico, apellidoMedico, fechaNacimientoMedico, numeroTelefonoMedico, rfc, contraseniaMedico);
                 hospital.registrarMedico(medico);
+                //hata aqui :)
                 break;
             case 3:
                 System.out.println("************REGISTRAR CONSULTORIO************\n");
