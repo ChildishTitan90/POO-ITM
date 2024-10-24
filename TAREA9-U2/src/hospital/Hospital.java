@@ -26,7 +26,7 @@ public class Hospital {
 
     public void Hospital(){
         LocalDate fechaNacimiento = LocalDate.of(1999, 11, 05);
-        Administrador administrador = new Administrador("A-01", "Alverto", "Rivera", fechaNacimiento, "4466523641", "Admin123", Rol.ADMIN,10000.00, "fdasfa", 10);
+        Administrador administrador = new Administrador("A-01", "Alverto", "Rivera", fechaNacimiento, "4466523641", "Admin123", Rol.ADMIN,10000.00, "fdasfa", 10, "asf@gmail.com");
         this.listaAdmins.add(administrador);
         this.listaUsuarios.add(administrador);
     }
@@ -67,7 +67,7 @@ public class Hospital {
         }
 
         for (Paciente paciente : this.listaPacientes){
-            System.out.println(paciente.mostrarDatos());
+            System.out.println(paciente.mostrarInformacion());
         }
     }
 
@@ -77,7 +77,7 @@ public class Hospital {
         }
 
         for (Medico medico : this.listaMedicos){
-            System.out.println(medico.mostrarDatos());
+            System.out.println(medico.mostrarInformacion());
         }
     }
 
@@ -180,7 +180,7 @@ public class Hospital {
         Paciente paciente = this.obtenerPacientePorId(id);
 
         if(paciente != null){
-            System.out.println(paciente.mostrarDatos());
+            System.out.println(paciente.mostrarInformacion());
         }else{
             System.out.println("No se encontro el paciente con el id " + id);
         }
@@ -197,7 +197,7 @@ public class Hospital {
         Medico medico = this.obtenerMedicoPorId(id);
 
         if(medico != null){
-            System.out.println(medico.mostrarDatos());
+            System.out.println(medico.mostrarInformacion());
         }else{
             System.out.println("No se encontro el medico con el id " + id);
         }
@@ -337,5 +337,26 @@ public class Hospital {
         paciente.registrarExpediente(expediente);
         System.out.println("CONSULTA FINALIZADA.");
 
+    }
+
+    //un generico tiene como tipo el que yo quiera, por se general t o v, lo que hace es recibir cualquier tipo de dato que to le mande
+    public  boolean validarTelefonoRepetido(ArrayList<? extends Usuario> listaUsuarios, String telefono){
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.getTelefono().equals(telefono)) {
+                System.out.println("YA EXISTE UN TELEFONO USUARIO CON ESE TELEFONO. INTENTA DE NUEVO");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validarEmailRepetido(ArrayList<? extends Usuario> listaUsuarios, String email){
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.getEmail() != null && usuario.getEmail().equals(email)) {
+                System.out.println("YA EXISTE UN USUARIO CON ESE EMAIL. INTENTA DE NUEVO");
+                return false;
+            }
+        }
+        return true;
     }
 }

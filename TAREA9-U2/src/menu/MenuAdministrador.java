@@ -46,24 +46,25 @@ public class MenuAdministrador {
         switch (opcion) {
             case 1:
                 System.out.println("************REGISTRAR PACIENTE************\n");
+
+                ArrayList<String> datosPaciente = this.obtnerDatosComun(Rol.PACIENTE, hospital);
+
+                String nombrePaciente = datosPaciente.get(0);
+                String apellidoPaciente = datosPaciente.get(1);
+                LocalDate fechaNacimientoPaciente = LocalDate.parse(datosPaciente.get(2));
+                String numeroTelefonoPaciente = datosPaciente.get(3);
+                String emailPaciente = datosPaciente.get(4);
+                String contraseniaPaciente = datosPaciente.get(5);
+
                 String id = hospital.generarIdPaciente();
 
-                ArrayList<String> datosPacientre = this.obtnerDatosComun(Rol.PACIENTE, hospital);
-
-                String nombrePaciente = datosPacientre.get(0);
-                String apellidoPaciente = datosPacientre.get(1);
-                LocalDate fechaNacimientoPaciente = LocalDate.parse(datosPacientre.get(2));
-                String numeroTelefonoPaciente = datosPacientre.get(3);
-                String contraseniaPaciente = datosPacientre.get(4);
-
-                sc.nextLine();
                 System.out.println("INGRESA EL TIPO DE SANGRE: ");
                 String tipoSangre = sc.nextLine();
 
                 System.out.println("INGRESA EL SEXO DEL PACIENTE: H/M");
                 Character sexo = sc.next().charAt(0);
 
-                Paciente paciente = new Paciente(id, nombrePaciente, apellidoPaciente, fechaNacimientoPaciente, tipoSangre, sexo, numeroTelefonoPaciente, contraseniaPaciente);
+                Paciente paciente = new Paciente(id, nombrePaciente, apellidoPaciente, fechaNacimientoPaciente, tipoSangre, sexo, numeroTelefonoPaciente, contraseniaPaciente, emailPaciente);
                 hospital.registrarPaciente(paciente);
                 break;
             case 2:
@@ -75,6 +76,7 @@ public class MenuAdministrador {
                 String apellidoMedico = datosMedico.get(1);
                 LocalDate fechaNacimientoMedico = LocalDate.parse(datosMedico.get(2));
                 String numeroTelefonoMedico = datosMedico.get(3);
+                String emailMedico = datosMedico.get(4);
                 String contraseniaMedico = datosMedico.get(4);
 
                 String idMedico = hospital.generarIdMedico(apellidoMedico, fechaNacimientoMedico);
@@ -90,7 +92,7 @@ public class MenuAdministrador {
                     }
                 }
 
-                Medico medico = new Medico(idMedico,nombreMedico, apellidoMedico, fechaNacimientoMedico, numeroTelefonoMedico, rfc, contraseniaMedico);
+                Medico medico = new Medico(idMedico,nombreMedico, apellidoMedico, fechaNacimientoMedico, numeroTelefonoMedico, rfc,  contraseniaMedico, emailMedico);
                 hospital.registrarMedico(medico);
                 //hata aqui :)
                 break;
@@ -253,44 +255,46 @@ public class MenuAdministrador {
         String tipoUsuario = rol == Rol.PACIENTE ? "PACIENTE" : rol == Rol.MEDICO ? "MEDICO" : "ADMINISTRADOR";
         ArrayList<String> datosEnComun = new ArrayList<>();
 
+        sc.nextLine();
         System.out.println(String.format("INGRESA EL NOMBRE DEL %s:", tipoUsuario));
         String nombre = sc.nextLine();
-        datosEnComun.add(nombre);
+        datosEnComun.add(nombre);//0
 
         System.out.println(String.format("INGRESA EL APELLIDO DEL %s:", tipoUsuario));
         String apellido = sc.nextLine();
-        datosEnComun.add(apellido);
+        datosEnComun.add(apellido);//1
 
-        datosEnComun.add(obtenerFechaNacimientoUsuario(tipoUsuario));
+        datosEnComun.add(obtenerFechaNacimientoUsuario(tipoUsuario));//2
 
         boolean esTelefonoValido = false;
         String numeroTelefono = "";
-
+        sc.nextLine();
         while (!esTelefonoValido){
             System.out.println(String.format("INGRESA EL NÚMERO DE TELEFONO DEL %s:", tipoUsuario));
             numeroTelefono = sc.nextLine();
-            esTelefonoValido = validarTelefonoRepetido(rol == Rol.PACIENTE ? hospital.listaPacientes : hospital.listaMedicos, tipoUsuario);
+            esTelefonoValido = hospital.validarTelefonoRepetido(rol == Rol.PACIENTE ? hospital.listaPacientes : hospital.listaMedicos, numeroTelefono);
         }
 
-        datosEnComun.add(numeroTelefono);
+        datosEnComun.add(numeroTelefono);//3
+
+        boolean esEmailValido = false;
+        String email = "";
+        while (!esEmailValido){
+            System.out.println(String.format("INGRESA EL EMAIL DEL %s:", tipoUsuario));
+            email = sc.nextLine();
+            esEmailValido = hospital.validarEmailRepetido(rol == Rol.PACIENTE ? hospital.listaPacientes : hospital.listaMedicos, email);
+        }
+
+        datosEnComun.add(email);//4
 
         System.out.println(String.format("INGRESA LA CONTRASEÑA DEL %s:", tipoUsuario));
         String contrasenia = sc.nextLine();
-        datosEnComun.add(contrasenia);
+        datosEnComun.add(contrasenia);//5
 
         return datosEnComun;
     }
 
-    //un generico tiene como tipo el que yo quiera, por se general t o v, lo que hace es recibir cualquier tipo de dato que to le mande
-    private  boolean validarTelefonoRepetido(ArrayList<? extends Usuario> listaUsuarios, String telefono){
-        for (Usuario usuario : listaUsuarios) {
-            if (usuario.getTelefono().equals(telefono)) {
-                System.out.println("YA EXISTE UN TELEFONO USUARIO CON ESE TELEFONO. INTENTA DE NUEVO");
-                return false;
-            }
-        }
-        return true;
-    }
+
 
     private String obtenerFechaNacimientoUsuario(String tipoUsuario){
         LocalDate fechaNacimiento = LocalDate.now();
@@ -312,6 +316,7 @@ public class MenuAdministrador {
                 System.out.println("LA FECHA DE NACIMIENTO NO PUEDE SER POSTERIOR AL DIA DE HOY. INTENTA DE NUEVO\n");
             }else {
                 esFechaValida = true;
+                fechaNacimiento = fechaNacimieto;
             }
         }
         return fechaNacimiento.toString();

@@ -13,8 +13,8 @@ public class Paciente extends Usuario {
     public ArrayList<Expediente> listaExpedientes = new ArrayList<>();
 
 
-    public Paciente( String id, String nombre, String apellidos, LocalDate fechaNacimiento, String tipoSangre, char sexo, String telefono, String contrenia) {
-        super(id, nombre, apellidos, fechaNacimiento, telefono,contrenia, Rol.PACIENTE);
+    public Paciente( String id, String nombre, String apellidos, LocalDate fechaNacimiento, String tipoSangre, char sexo, String telefono, String email, String contrenia) {
+        super(id, nombre, apellidos, fechaNacimiento, telefono,contrenia, email, Rol.PACIENTE);
         this.tipoSangre = tipoSangre;
         this.sexo = sexo;
     }
@@ -29,7 +29,7 @@ public class Paciente extends Usuario {
 
     @Override //indica que voy a sobreescribir el metpdp de la clase padre
     public String mostrarInformacion() {
-        String datosPaciente = String.format("TIPO DE SANGRE: %s, SEXO: %s", this.tipoSangre, this.sexo);
+        String datosPaciente = String.format(", TIPO DE SANGRE: %s, SEXO: %s", this.tipoSangre, this.sexo);
         return super.mostrarInformacion() + datosPaciente;
     }
 
