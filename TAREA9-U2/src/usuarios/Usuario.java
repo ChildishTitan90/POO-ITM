@@ -21,20 +21,20 @@ public class Usuario {
 
     public Rol rol;//enum
 
-    public Usuario(String id, String nombre, String apellidos, LocalDate fechaNacimiento, String telefono,String contrasenia, String email,Rol rol) {
+    public Usuario(String id, String nombre, String apellidos, LocalDate fechaNacimiento, String telefono,String email, String contrasenia, Rol rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
-        this.contrasenia = contrasenia;
         this.email = email;
+        this.contrasenia = contrasenia;
         this.rol = rol;
     }
 
     protected String mostrarInformacion(){
         String nombreCompleto = this.nombre + " " + this.apellidos;
-        String datos = String.format("\nID: %s, NOMBRE COMPLETO: %s, FECHA DE NACIMENTO: %s, TELEFONO: %s, EMAL: %s", this.id, nombreCompleto, this.fechaNacimiento, this.telefono, this.contrasenia, this.email);
+        String datos = String.format("\nID: %s, NOMBRE COMPLETO: %s, FECHA DE NACIMENTO: %s, TELEFONO: %s, EMAL: %s, CONTRAEÑA: %s", this.id, nombreCompleto, this.fechaNacimiento, this.telefono, this.email, this.contrasenia );
         return datos;
     }
 

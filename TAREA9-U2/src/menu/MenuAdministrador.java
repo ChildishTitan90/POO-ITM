@@ -64,7 +64,7 @@ public class MenuAdministrador {
                 System.out.println("INGRESA EL SEXO DEL PACIENTE: H/M");
                 Character sexo = sc.next().charAt(0);
 
-                Paciente paciente = new Paciente(id, nombrePaciente, apellidoPaciente, fechaNacimientoPaciente, tipoSangre, sexo, numeroTelefonoPaciente, contraseniaPaciente, emailPaciente);
+                Paciente paciente = new Paciente(id, nombrePaciente, apellidoPaciente, fechaNacimientoPaciente, tipoSangre, sexo, numeroTelefonoPaciente,  emailPaciente, contraseniaPaciente);
                 hospital.registrarPaciente(paciente);
                 break;
             case 2:
@@ -77,7 +77,7 @@ public class MenuAdministrador {
                 LocalDate fechaNacimientoMedico = LocalDate.parse(datosMedico.get(2));
                 String numeroTelefonoMedico = datosMedico.get(3);
                 String emailMedico = datosMedico.get(4);
-                String contraseniaMedico = datosMedico.get(4);
+                String contraseniaMedico = datosMedico.get(5);
 
                 String idMedico = hospital.generarIdMedico(apellidoMedico, fechaNacimientoMedico);
 
@@ -92,7 +92,7 @@ public class MenuAdministrador {
                     }
                 }
 
-                Medico medico = new Medico(idMedico,nombreMedico, apellidoMedico, fechaNacimientoMedico, numeroTelefonoMedico, rfc,  contraseniaMedico, emailMedico);
+                Medico medico = new Medico(idMedico,nombreMedico, apellidoMedico, fechaNacimientoMedico, numeroTelefonoMedico, rfc, emailMedico, contraseniaMedico );
                 hospital.registrarMedico(medico);
                 //hata aqui :)
                 break;

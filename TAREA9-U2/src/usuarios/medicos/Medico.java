@@ -9,7 +9,7 @@ public class Medico extends Usuario {
     private  String rfc;
 
     public Medico(String id, String nombre, String apellidos, LocalDate fechaNacimiento, String telefono, String rfc, String email, String contrasenia) {
-        super(id, nombre, apellidos, fechaNacimiento, telefono,contrasenia, email, Rol.MEDICO);
+        super(id, nombre, apellidos, fechaNacimiento, telefono,email, contrasenia, Rol.MEDICO);
         this.rfc = rfc;
     }
 

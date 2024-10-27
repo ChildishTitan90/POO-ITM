@@ -10,7 +10,7 @@ public class Administrador extends Usuario {
     public String rfc;
     public int aniosTrabajados;
 
-    public Administrador(String id, String nombre, String apellidos, LocalDate fechaNacimiento, String telefono, String contrasenia, Rol rol, Double sueldo, String rfc, int aniosTrabajados, String email) {
+    public Administrador(String id, String nombre, String apellidos, LocalDate fechaNacimiento, String telefono, String email, Double sueldo, String rfc, int aniosTrabajados, String contrasenia, Rol rol ) {
         super(id, nombre, apellidos, fechaNacimiento, telefono, contrasenia, email,rol);
         this.sueldo = sueldo;
         this.rfc = rfc;

@@ -14,7 +14,7 @@ public class Paciente extends Usuario {
 
 
     public Paciente( String id, String nombre, String apellidos, LocalDate fechaNacimiento, String tipoSangre, char sexo, String telefono, String email, String contrenia) {
-        super(id, nombre, apellidos, fechaNacimiento, telefono,contrenia, email, Rol.PACIENTE);
+        super(id, nombre, apellidos, fechaNacimiento, telefono,email, contrenia, Rol.PACIENTE);
         this.tipoSangre = tipoSangre;
         this.sexo = sexo;
     }

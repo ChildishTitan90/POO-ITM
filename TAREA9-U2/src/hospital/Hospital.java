@@ -26,7 +26,7 @@ public class Hospital {
 
     public void Hospital(){
         LocalDate fechaNacimiento = LocalDate.of(1999, 11, 05);
-        Administrador administrador = new Administrador("A-01", "Alverto", "Rivera", fechaNacimiento, "4466523641", "Admin123", Rol.ADMIN,10000.00, "fdasfa", 10, "asf@gmail.com");
+        Administrador administrador = new Administrador("A", "Alverto", "Rivera", fechaNacimiento, "4466523641", "123", 10000.00,"asdfasdfer", 10, "123", Rol.ADMIN);
         this.listaAdmins.add(administrador);
         this.listaUsuarios.add(administrador);
     }
@@ -352,6 +352,7 @@ public class Hospital {
 
     public boolean validarEmailRepetido(ArrayList<? extends Usuario> listaUsuarios, String email){
         for (Usuario usuario : listaUsuarios) {
+            // lsdkj
             if (usuario.getEmail() != null && usuario.getEmail().equals(email)) {
                 System.out.println("YA EXISTE UN USUARIO CON ESE EMAIL. INTENTA DE NUEVO");
                 return false;
