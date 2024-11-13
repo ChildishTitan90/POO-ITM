@@ -1,0 +1,3 @@
+SUBIR LO DE POO
+QUITAR EL SALTO DE LINEA DESPUES DE "LISTA TAREAS"
+Investigar como eliminar (en este caso) una tarea en especifico :)
